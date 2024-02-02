@@ -8,7 +8,8 @@ object A {
 
 fun main(args: Array<String>) {
     //Breakpoint!
+    // Break here, step into: Lands on 3 instead of 5
     A.bar()
 }
 
-// IGNORE_K2_SMART_STEP_INTO (expected to land on line 5)
+// IGNORE_K2_SMART_STEP_INTO

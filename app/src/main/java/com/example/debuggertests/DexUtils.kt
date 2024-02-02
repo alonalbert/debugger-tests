@@ -23,14 +23,14 @@ internal fun Context.getTestCases(): List<String> {
   val dexFileField = field("dalvik.system.DexPathList\$Element", "dexFile")
 
   @Suppress("DEPRECATION")
-  return dexElements.map {
-    dexFileField.get(it) as DexFile
-  }.flatMap {
-    it.entries().asSequence()
-  }.filter {
-    val split = it.split(".")
-    split.size == 2 && "${split[0].capitalize()}Kt" == split[1]
-  }
+  return dexElements
+    .map { dexFileField.get(it) as DexFile }
+    .flatMap { it.entries().asSequence() }
+    .distinct()
+    .filter {
+      val split = it.split(".")
+      split.size == 2 && "${split[0].capitalize()}Kt" == split[1]
+    }
 }
 
 private fun field(className: String, fieldName: String): Field {
@@ -40,4 +40,4 @@ private fun field(className: String, fieldName: String): Field {
   return field
 }
 
-private fun String.capitalize()  = replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+private fun String.capitalize() = replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }

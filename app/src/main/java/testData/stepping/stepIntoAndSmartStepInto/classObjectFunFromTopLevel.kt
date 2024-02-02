@@ -10,6 +10,7 @@ class A {
 
 fun main(args: Array<String>) {
     //Breakpoint!
+    // Break here, step into: Lands on 4 instead of 6
     A.bar()
 }
 
